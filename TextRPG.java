@@ -41,20 +41,24 @@ public class TextRPG {
         
         while(true) {
             System.out.println("What do you want to do?");
-            userInput = inputReader.nextLine();
+            userInput = inputReader.nextLine().toLowerCase();
             
             if(userInput.equals("quit")) {
-                System.out.println("Are you sure? (y/n):");
-                userConfirmation = inputReader.nextLine();
-                if(userConfirmation.toLowerCase().equals("y")) {
+                //Testing
+                //System.out.println("Are you sure? (y/n):");
+                //userConfirmation = inputReader.nextLine();
+                //if(userConfirmation.toLowerCase().equals("y")) {
                     System.out.println("Goodbye!");
                     System.exit(0);
-                }
+                //}
             } else if (userInput.startsWith("go")) {
                 map.move(userInput.substring(3));
                 map.printCurrRoom();
             } else if (userInput.equals("look")) {
                 map.lookCurrRoom();
+            } else if(userInput.startsWith("health")) {
+                System.out.print("Your health is currently: ");
+                System.out.print(mainCharacter.getHealth());
             }//If statement
         } //While loop
     } //Static void main
@@ -82,30 +86,31 @@ public class TextRPG {
         
         int mapNum=0,x=0,y=0;
         int counter = 0;
+        //Use this giant try to catch any IOExceptions that might happen with the file
         try{
-        do{
-            mapLine = mapFile.readLine();
-        } while(mapLine.startsWith("#"));
-        
-        while(mapLine != null) {
-            if(mapLine.equals(":")) {
-                //Room number
+            do{
                 mapLine = mapFile.readLine();
-                mapNum = Integer.parseInt(mapLine);
-                System.out.println("Room number: " + mapNum);
-                x = (mapNum - 1) % MAP_SIZE;
-                y = (mapNum - 1) / MAP_SIZE;
-                description = mapFile.readLine();
-                exits = mapFile.readLine();
-                items = mapFile.readLine();
-                enemies = mapFile.readLine();
-                counter = counter + 1;
-                gameMap.setRoom(x, y, description, exits, items, enemies);
-            }
-            mapLine = mapFile.readLine();                    
-        } //While
-        
-        mapFile.close();
+            } while(mapLine.startsWith("#"));
+
+            while(mapLine != null) {
+                if(mapLine.equals(":")) {
+                    //Room number
+                    mapLine = mapFile.readLine();
+                    mapNum = Integer.parseInt(mapLine);
+                    System.out.println("Room number: " + mapNum);
+                    x = (mapNum - 1) % MAP_SIZE;
+                    y = (mapNum - 1) / MAP_SIZE;
+                    description = mapFile.readLine();
+                    exits = mapFile.readLine();
+                    items = mapFile.readLine();
+                    enemies = mapFile.readLine();
+                    counter = counter + 1;
+                    gameMap.setRoom(x, y, description, exits, items, enemies);
+                }
+                mapLine = mapFile.readLine();                    
+            } //While
+
+            mapFile.close();
         } catch(FileNotFoundException e) {
             System.out.println("File not found.");
             System.out.println(e.getMessage());

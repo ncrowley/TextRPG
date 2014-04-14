@@ -65,6 +65,7 @@ public class Map {
     }
     
     public boolean move(String d) {
+        d = d.toLowerCase();
         if(d.equals("south")) {
             if(xx < (size - 1)) {
                 if(exits[xx][yy].contains("s")) {

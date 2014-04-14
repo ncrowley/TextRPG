@@ -10,7 +10,7 @@ package textrpg;
  *
  * @author Nick
  */
-public class items {
+public class item {
     private int attack;
     private int defense;
     private String name;
