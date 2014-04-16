@@ -30,7 +30,7 @@ public class TextRPG {
         Scanner inputReader = new Scanner(System.in);
         humanPlayer mainCharacter = new humanPlayer();
         Map map = new Map(MAP_SIZE);
-        mapInit(map);
+        map.mapInit(DATA_LOCATION);
         
         //Testing
         //System.out.println("Enter the character name: ");
@@ -62,68 +62,4 @@ public class TextRPG {
             }//If statement
         } //While loop
     } //Static void main
-    
-    /*
-    To do for this function:
-    Add in the ability for comments in the map file apart from the header
-    */
-    public static void mapInit(Map gameMap) {
-        BufferedReader mapFile;
-        try{
-            mapFile = new BufferedReader(new FileReader(new File(DATA_LOCATION + "map.txt")));
-        } catch(FileNotFoundException e) {
-            System.out.println(e.getMessage());
-            return;
-        } catch(IOException e) {
-            System.out.println(e.getMessage());
-            return;
-        }
-        String mapLine = new String();
-        String description = new String();
-        String exits = new String();
-        String items = new String();
-        String enemies = new String();
-        
-        int mapNum=0,x=0,y=0;
-        int counter = 0;
-        //Use this giant try to catch any IOExceptions that might happen with the file
-        try{
-            do{
-                mapLine = mapFile.readLine();
-            } while(mapLine.startsWith("#"));
-
-            while(mapLine != null) {
-                if(mapLine.equals(":")) {
-                    //Room number
-                    mapLine = mapFile.readLine();
-                    mapNum = Integer.parseInt(mapLine);
-                    System.out.println("Room number: " + mapNum);
-                    x = (mapNum - 1) % MAP_SIZE;
-                    y = (mapNum - 1) / MAP_SIZE;
-                    description = mapFile.readLine();
-                    exits = mapFile.readLine();
-                    items = mapFile.readLine();
-                    enemies = mapFile.readLine();
-                    counter = counter + 1;
-                    gameMap.setRoom(x, y, description, exits, items, enemies);
-                }
-                mapLine = mapFile.readLine();                    
-            } //While
-
-            mapFile.close();
-        } catch(FileNotFoundException e) {
-            System.out.println("File not found.");
-            System.out.println(e.getMessage());
-        } catch(IOException e) {
-            System.out.println("File read error.");
-            System.out.println(e.getMessage());            
-        }
-        if(counter == (MAP_SIZE * MAP_SIZE)) {
-            System.out.println("File parsed successfully.\n\n");
-        } else {
-            System.out.println("Error reading map, not enough room entries found.");
-            System.exit(1);
-        }
-    } //Function
-    
 } //Class
