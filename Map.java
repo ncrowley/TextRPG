@@ -70,6 +70,45 @@ public class Map {
         yy = y;
     }
     
+    public boolean enemyCheck(String name) {
+        int nameStart = 0, nameEnd = 0, count = 0;
+        boolean checked = true;
+        String currentEnemies = enemies[xx][yy].toLowerCase();
+        
+        if(!currentEnemies.equals("")) {
+            for(int i = 0;i < currentEnemies.length();i+=1) {
+                if((currentEnemies.substring(i).equals(",") && i > 0) || i == (currentEnemies.length() - 1)) {
+                    if(count > 1) {
+                        //Ex enemies: Sketchy guy, homeless drunk, rat
+                        nameStart = nameEnd + 3;
+                        nameEnd = i - 1;
+                    } else {
+                        nameStart = nameEnd;
+                        nameEnd = i - 1;
+                    }
+                    count += 1;
+                    checked = false;
+                }
+                
+                if(!checked) {
+                    if(count > 0){
+                        String nameTest = currentEnemies.substring(nameStart, nameEnd + 1);
+                        if(name.equals(nameTest)) {
+                            return true;
+                        }
+                        checked = true;
+                    }
+                }
+            }
+            
+        }
+        return false;
+    }
+    
+    public String enemyInfo() {
+        return enemies[xx][yy];
+    }
+    
     public boolean move(String d) {
         d = d.toLowerCase();
         if(d.equals("south")) {

@@ -56,7 +56,7 @@ public class Player {
     //Calculates damage taken by an attack and updates health
     public int defend(int incAttack) {
         int initHealth = health;
-        if(defense <= incAttack) {
+        if(defense < incAttack) {
             health = health - (incAttack - defense);
         }
         
@@ -85,5 +85,9 @@ public class Player {
     // It is reocmmended that this method is overwritten.
     private void death() {
         System.out.println(name + " has died.");
+    }
+    
+    public String getName() {
+        return name;
     }
 }

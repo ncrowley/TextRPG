@@ -11,10 +11,10 @@ package textrpg;
  * @author Nick
  */
 public class computerPlayer extends Player {
-    computerPlayer() {
-        this.name = "Player";
-        this.health = 20;
+    computerPlayer(String n) {
+        this.name = n;
         this.level = 1;
+        this.health = 20;
         this.attackCaculate();
         this.defenseCalculate();
     }
