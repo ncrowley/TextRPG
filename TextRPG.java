@@ -31,6 +31,7 @@ public class TextRPG {
         humanPlayer mainCharacter = new humanPlayer();
         computerPlayer enemies[] = new computerPlayer[5];
         int enemyCount = 0;
+        int attack;
         Map map = new Map(MAP_SIZE);
         map.mapInit(DATA_LOCATION);
         
@@ -40,7 +41,7 @@ public class TextRPG {
         userInput = "Nick";
         mainCharacter.setName(userInput);
         map.printCurrRoom();
-        
+        enemyCount = setEnemies(map, enemies);
         while(true) {
             System.out.println("What do you want to do?");
             userInput = inputReader.nextLine().toLowerCase();
@@ -66,17 +67,20 @@ public class TextRPG {
                 System.out.print("Your health is currently: ");
                 System.out.print(mainCharacter.getHealth() + "\n");
             } else if(userInput.startsWith("attack")) {
-                //Check if the enemy has been declared
-                //If not then check if it exists in the room
-                System.out.println("Attempting to initiate fight.");
-                System.out.println("Enemy count: " + enemyCount);
                 if(enemyCount > 0) {
                     for(int i  = 0;i < enemyCount;i += 1) {
-                        System.out.println("Enemy: " + (i + 1));
-                        System.out.println(userInput.substring(7));
-                        System.out.println(enemies[i].getName().toLowerCase());
                         if(userInput.substring(7).equals(enemies[i].getName().toLowerCase())) {
-                            System.out.println("That enemy was found here.");
+                            if(!enemies[i].isDead()) {
+                                System.out.println("You attack " + enemies[i].getName()
+                                    + " dealing " + enemies[i].defend(mainCharacter.attack()) + " damage.");
+                                System.out.println(enemies[i].getName() + " attacks you "
+                                    + " dealing " + mainCharacter.defend(enemies[i].attack()) + " damage.");
+                                System.out.println("Remaining health: " + mainCharacter.getHealth());
+                                mainCharacter.isDead();
+                                enemies[i].isDead();
+                            } else {
+                                System.out.println("The corpse of " + enemies[i].getName() + " lies here.");
+                            }
                         }
                     }
                 } else {

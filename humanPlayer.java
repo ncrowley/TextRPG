@@ -13,7 +13,7 @@ package textrpg;
 public class humanPlayer extends Player {
     humanPlayer() {
         this.health = 20;
-        this.level = 1;
+        this.level = 2;
         this.attackCaculate();
         this.defenseCalculate();
     }

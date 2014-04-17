@@ -25,6 +25,8 @@ public class Player {
     protected String[] equipment = new String [5];
     protected String name = new String();
     
+    protected boolean dead = false;
+    
     Player() {
         System.out.println("Player created, not initialized.");
     }
@@ -59,7 +61,6 @@ public class Player {
         if(defense < incAttack) {
             health = health - (incAttack - defense);
         }
-        
         return (initHealth - health);
     }
     
@@ -67,14 +68,14 @@ public class Player {
     public int attack() {
         int MAX = attack;
         //Possibly add attack floor
-        int MIN = 0;
+        int MIN = level / 4 + 1;
         //Inverted boolean so on strike missed miss = 0
-        int miss = 1;
         //This allows simple multiplication by the final result
-        int random;
+        int miss = 1;
+
         int totalStrike;
         
-        if((int)(Math.random()*100) > 95) {
+        if((int)(Math.random()*100) > 97) {
             miss = 0;   //Strike is a miss
         }
         totalStrike = MIN + (int)(Math.random() * ((MAX - MIN) + 1));
@@ -82,9 +83,14 @@ public class Player {
         return totalStrike * miss;
     }
     
-    // It is reocmmended that this method is overwritten.
-    private void death() {
-        System.out.println(name + " has died.");
+    public boolean isDead() {
+        if(!dead) {
+            if(health <= 0) {
+                System.out.println(name + " has died.");
+                dead = true;
+            }
+        }
+        return dead;
     }
     
     public String getName() {
