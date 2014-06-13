@@ -4,15 +4,16 @@
  * and open the template in the editor.
  */
 
-package textrpg;
 
-import java.util.HashSet;
+//package textrpg;
+
+//import java.util.HashSet;
 import java.util.Scanner;
-import java.io.FileReader;
-import java.io.File;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+//import java.io.FileReader;
+//import java.io.File;
+//import java.io.BufferedReader;
+//import java.io.FileNotFoundException;
+//import java.io.IOException;
 
 /**
  *
@@ -31,7 +32,6 @@ public class TextRPG {
         humanPlayer mainCharacter = new humanPlayer();
         computerPlayer enemies[] = new computerPlayer[5];
         int enemyCount = 0;
-        int attack;
         Map map = new Map(MAP_SIZE);
         map.mapInit(DATA_LOCATION);
         
@@ -51,8 +51,10 @@ public class TextRPG {
                 //System.out.println("Are you sure? (y/n):");
                 //userConfirmation = inputReader.nextLine();
                 //if(userConfirmation.toLowerCase().equals("y")) {
-                    System.out.println("Goodbye!");
-                    System.exit(0);
+                //Clean up before exiting
+            	System.out.println("Goodbye!");                
+                inputReader.close();
+                System.exit(0);
                 //}
             } else if (userInput.startsWith("go")) {
                 if(map.move(userInput.substring(3))) {

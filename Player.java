@@ -4,9 +4,10 @@
  * and open the template in the editor.
  */
 
-package textrpg;
 
-import java.util.Random;
+//package textrpg;
+
+//import java.util.Random;
 
 
 /**

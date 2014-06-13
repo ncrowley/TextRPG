@@ -4,7 +4,8 @@
  * and open the template in the editor.
  */
 
-package textrpg;
+
+//package TextRPG;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -52,6 +53,7 @@ public class Map {
         System.out.println("Exits: " + exits[xx][yy]);
     }
     
+    //Prints the look results: items in room, enemies in room, etc
     public void lookCurrRoom() {
         if(!items[xx][yy].equals("")) {
             System.out.println("Looking around you see on the ground " + items[xx][yy]);
@@ -65,6 +67,8 @@ public class Map {
         }
     }
     
+    //Allows manually setting character location in map
+    //Possibility of adding warping? Portals?
     public void setLocation(int x, int y) {
         xx = x;
         yy = y;
@@ -77,7 +81,7 @@ public class Map {
         
         if(!currentEnemies.equals("")) {
             for(int i = 0;i < currentEnemies.length();i+=1) {
-                if((currentEnemies.substring(i).equals(",") && i > 0) || i == (currentEnemies.length() - 1)) {
+                if(i == (currentEnemies.length() - 1) || (currentEnemies.substring(i).equals(",") && i > 0)) {
                     if(count > 1) {
                         //Ex enemies: Sketchy guy, homeless drunk, rat
                         nameStart = nameEnd + 3;
@@ -111,7 +115,7 @@ public class Map {
     
     public boolean move(String d) {
         d = d.toLowerCase();
-        if(d.equals("south")) {
+        if(d.equals("south") || d.equals("s")) {
             if(xx < (size - 1)) {
                 if(exits[xx][yy].contains("s")) {
                     xx = xx + 1;
@@ -122,7 +126,7 @@ public class Map {
             } else {
                 System.out.println("You have reached the edge of the map! Try another direction.");
             }
-        } else if(d.equals("north")) {
+        } else if(d.equals("north") || d.equals("n")) {
             if(xx > 0) {
                 if(exits[xx][yy].contains("n")) {
                     xx = xx - 1;
@@ -133,10 +137,10 @@ public class Map {
             } else {
                 System.out.println("You have reached the edge of the map! Try another direction.");
             }
-        } else if(d.equals("east")) {
-            if(yy > 0) {
+        } else if(d.equals("east") || d.equals("e")) {
+            if(yy < (size - 1)) {
                 if(exits[xx][yy].contains("e")) {
-                    yy = yy - 1;
+                    yy = yy + 1;
                     return true;
                 } else {
                     System.out.println("There are no exits in that direction.");
@@ -144,10 +148,10 @@ public class Map {
             } else {
                 System.out.println("You have reached the edge of the map! Try another direction.");
             }
-        } else if(d.equals("west")) {
-            if(xx < (size - 1)) {
+        } else if(d.equals("west") || d.equals("w")) {
+            if(yy > 0) {
                 if(exits[xx][yy].contains("w")) {
-                    yy = yy + 1;
+                    yy = yy - 1;
                     return true;
                 } else {
                     System.out.println("There are no exits in that direction.");
@@ -170,10 +174,8 @@ public class Map {
         } catch(FileNotFoundException e) {
             System.out.println(e.getMessage());
             return;
-        } catch(IOException e) {
-            System.out.println(e.getMessage());
-            return;
         }
+        
         String mapLine = new String();
         String description = new String();
         String exits = new String();
