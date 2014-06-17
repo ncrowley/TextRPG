@@ -7,6 +7,7 @@
 
 //package TextRPG;
 
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -83,7 +84,6 @@ public class Map {
             for(int i = 0;i < currentEnemies.length();i+=1) {
                 if(i == (currentEnemies.length() - 1) || (currentEnemies.substring(i).equals(",") && i > 0)) {
                     if(count > 1) {
-                        //Ex enemies: Sketchy guy, homeless drunk, rat
                         nameStart = nameEnd + 3;
                         nameEnd = i - 1;
                     } else {

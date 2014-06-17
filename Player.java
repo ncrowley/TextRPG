@@ -4,9 +4,6 @@
  * and open the template in the editor.
  */
 
-
-//package textrpg;
-
 //import java.util.Random;
 
 
@@ -29,19 +26,38 @@ public class Player {
     protected boolean dead = false;
     
     Player() {
-        System.out.println("Player created, not initialized.");
+    	level = 1;
+    	attackCalculate();
+    	defenseCalculate();
+    }
+    
+    Player(String n) {
+    	name = n;
+    }    
+    
+    Player(Player p) {
+    	name = p.getName();
+    	level = p.getLevel();
+    	experience = p.getExp();
+    	health = p.getHealth();
+    	attack = p.getAttack();
+    	defense = p.getDefense();
     }
     
     protected void setName(String n) {
         name = n;
     }
     
-    protected void attackCaculate() {
+    protected void attackCalculate() {
         attack = level * 5;
     }
     
     protected void defenseCalculate() {
         defense = level * 4;
+    }
+    
+    protected void healthCalculate() {
+    	health = 90 + (level * 10);
     }
     
     public int getHealth() {
@@ -54,6 +70,14 @@ public class Player {
     
     public int getDefense() {
         return defense;
+    }
+    
+    public int getLevel() {
+    	return level;
+    }
+    
+    public double getExp() {
+    	return experience;
     }
     
     //Calculates damage taken by an attack and updates health
@@ -73,13 +97,17 @@ public class Player {
         //Inverted boolean so on strike missed miss = 0
         //This allows simple multiplication by the final result
         int miss = 1;
-
+        int randMiss = (int)(Math.random()*100);
+        int	randCrit = (int)(Math.random()*100);
         int totalStrike;
         
-        if((int)(Math.random()*100) > 97) {
-            miss = 0;   //Strike is a miss
-        }
         totalStrike = MIN + (int)(Math.random() * ((MAX - MIN) + 1));
+        
+        if(randMiss > 97) {
+            miss = 0;   //Strike is a miss
+        } else if(randCrit > 97) {
+        	totalStrike = totalStrike * 2;
+        }
         
         return totalStrike * miss;
     }

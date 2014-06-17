@@ -5,17 +5,15 @@
  */
 
 
-//package textrpg;
-
 /**
  *
  * @author Nick
  */
 public class humanPlayer extends Player {
     humanPlayer() {
-        this.health = 20;
         this.level = 2;
-        this.attackCaculate();
+        this.healthCalculate();
+        this.attackCalculate();
         this.defenseCalculate();
     }
     

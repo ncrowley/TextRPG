@@ -5,8 +5,6 @@
  */
 
 
-//package textrpg;
-
 /**
  *
  * @author Nick

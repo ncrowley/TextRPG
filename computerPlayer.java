@@ -4,9 +4,6 @@
  * and open the template in the editor.
  */
 
-
-//package textrpg;
-
 /**
  *
  * @author Nick
@@ -15,9 +12,21 @@ public class computerPlayer extends Player {
     computerPlayer(String n) {
         this.name = n;
         this.level = 1;
-        this.health = 20;
-        this.attackCaculate();
+        this.healthCalculate();
+        this.attackCalculate();
         this.defenseCalculate();
+    }
+    
+    computerPlayer(computerPlayer p) {
+    	super(p);
+    	
+    	/*
+    	this.name = p.getName();
+    	this.level = p.getLevel();
+    	this.health = p.getHealth();
+    	this.attack = p.getAttack();
+    	this.defense = p.getDefense();
+    	*/
     }
     
 }
