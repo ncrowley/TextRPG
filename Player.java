@@ -12,13 +12,15 @@
  * @author Nick
  */
 public class Player {
-    protected int health;
+	//Add strength, intelligence, speed
+    protected int health;		//Current health
+    protected int healthMax;	//Maximum health
     protected int level;
     protected int attack;
     protected int defense;
     
     protected double experience;
-    
+    protected int expToLevel;
     protected String[] inventory = new String [20];
     protected String[] equipment = new String [5];
     protected String name = new String();
@@ -33,35 +35,41 @@ public class Player {
     
     Player(String n) {
     	name = n;
+    	healthCalculate();
+    	attackCalculate();
+    	defenseCalculate();
+    	expToLevelCalculate();
     }    
-    
-    Player(Player p) {
-    	name = p.getName();
-    	level = p.getLevel();
-    	experience = p.getExp();
-    	health = p.getHealth();
-    	attack = p.getAttack();
-    	defense = p.getDefense();
-    }
     
     protected void setName(String n) {
         name = n;
     }
     
     protected void attackCalculate() {
-        attack = level * 5;
+    	//Eventually add in items / stats
+    	attack = 20 + level * 5;
     }
     
     protected void defenseCalculate() {
-        defense = level * 4;
+    	//Eventually add in items / stats
+        defense = 10 + level * 4;
     }
     
     protected void healthCalculate() {
     	health = 90 + (level * 10);
+    	healthMax = health;
     }
     
-    public int getHealth() {
+    protected void expToLevelCalculate() {
+    	expToLevel = 100 * level;
+    }
+    
+    public int getCurrHealth() {
         return health;
+    }
+    
+    public int getHealthMax() {
+    	return healthMax;
     }
     
     public int getAttack() {
@@ -80,11 +88,22 @@ public class Player {
     	return experience;
     }
     
+    //Calculate experience gained by defeating an enemy
+    public void defeated(computerPlayer p) {
+    	
+    }
+    
+    private void checkLevelUp() {
+    	
+    }
+    
     //Calculates damage taken by an attack and updates health
     public int defend(int incAttack) {
         int initHealth = health;
-        if(defense < incAttack) {
-            health = health - (incAttack - defense);
+        double defenseRand = 0.5 + Math.random() * 1.5;
+
+        if((defense * defenseRand) < incAttack) {
+            health = health - (incAttack - (int)(defense * defenseRand));
         }
         return (initHealth - health);
     }
@@ -97,8 +116,8 @@ public class Player {
         //Inverted boolean so on strike missed miss = 0
         //This allows simple multiplication by the final result
         int miss = 1;
-        int randMiss = (int)(Math.random()*100);
-        int	randCrit = (int)(Math.random()*100);
+        int randMiss = (int)(Math.random() * 100);
+        int	randCrit = (int)(Math.random() * 100);
         int totalStrike;
         
         totalStrike = MIN + (int)(Math.random() * ((MAX - MIN) + 1));

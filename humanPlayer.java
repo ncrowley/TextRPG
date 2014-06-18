@@ -16,5 +16,4 @@ public class humanPlayer extends Player {
         this.attackCalculate();
         this.defenseCalculate();
     }
-    
 }

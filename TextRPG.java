@@ -46,11 +46,12 @@ public class TextRPG {
         userInput = "Sir William Henceforth";
         mainCharacter.setName(userInput);
         map.printCurrRoom();
-        enemyCount = setEnemies(map, enemies);
-        for(int i=0;i<enemyCount;i++) {
-        	System.out.println("Enemy name- " + enemies[i].getName());
-        }
+        enemies = new computerPlayer[ENEMY_MAX];
+    	enemyCount = setEnemies(map, enemies);
+    	
         while(true) {
+        	//Health regen
+        	
             System.out.println("What do you want to do?");
             userInput = inputReader.nextLine().toLowerCase();
             
@@ -65,20 +66,18 @@ public class TextRPG {
                 System.exit(0);
                 //}
             } else if (userInput.startsWith("go")) {
-                if(map.move(userInput.substring(3))) {
-                    //Clear enemies each time you enter a room, this leaves a max of 5 enemies
-                	//working to implement this better
-                    enemyCount = setEnemies(map, enemies);
-                    for(int i=0;i<enemyCount;i++) {
-                    	System.out.println("Enemy name- " + enemies[i].getName());
-                    }
-                }
+            	//Get the enemies in the current room
+            	if(map.move(userInput.substring(3))) {
+            		enemies = new computerPlayer[ENEMY_MAX];
+                	enemyCount = setEnemies(map, enemies);
+            	}
+                
                 map.printCurrRoom();
             } else if (userInput.equals("look")) {
                 map.lookCurrRoom();
             } else if(userInput.startsWith("health")) {
                 System.out.print("Your health is currently: ");
-                System.out.print(mainCharacter.getHealth() + "\n");
+                System.out.print(mainCharacter.getCurrHealth() + "\n");
             } else if(userInput.startsWith("attack")) {
             	//Fight sequence code
                 if(enemyCount > 0) {
@@ -89,7 +88,7 @@ public class TextRPG {
                                     + " dealing " + enemies[i].defend(mainCharacter.attack()) + " damage.");
                                 System.out.println(enemies[i].getName() + " attacks you "
                                     + " dealing " + mainCharacter.defend(enemies[i].attack()) + " damage.");
-                                System.out.println("Remaining health: " + mainCharacter.getHealth());
+                                System.out.println("Remaining health: " + mainCharacter.getCurrHealth());
                                 mainCharacter.isDead();
                                 enemies[i].isDead();
                             } else {
@@ -112,20 +111,14 @@ public class TextRPG {
      */
     public static int setEnemies(Map gameMap, computerPlayer enemies[]) {
         String enemyInfo = gameMap.enemyInfo();
-        computerPlayer temp[] = new computerPlayer[ENEMY_MAX];
         int enemyCount = 0;
         
         for(String info : enemyInfo.split(",")) {
-            temp[enemyCount] = new computerPlayer(info.trim());
+            enemies[enemyCount] = new computerPlayer(info.trim());
             enemyCount += 1;
         }
         
         enemies = new computerPlayer[enemyCount];
-        
-        for(int i=0;i<enemyCount;i++) {
-        	enemies[i] = new computerPlayer(temp[i]);
-        	System.out.println("Enemy name: " + enemies[i].getName());
-        }
         
         return enemyCount;
     }
