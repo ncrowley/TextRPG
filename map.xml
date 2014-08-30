@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<map>
+	<room id="001">
+		<name>Main Town Square</name>
+		<description>A bustling town square lays before you. The town drunk has his paper bag and is mumbling to himself as he sits on the grand fountain. People rush by and take no notice of his presence but you, you see him here.</description>
+		<enemy>the town drunkard</enemy>
+		<npcs></npcs>
+		<items></items>
+		<exit>
+			<roomout>002</roomout>
+			<direction>south</direction>
+			<exittype></exittype>
+		</exit>
+		<exit>
+			<roomout>003</roomout>
+			<direction>east</direction>
+			<exittype></exittype>
+		</exit>
+	</room>
+	<room id="002">
+		<name>A Main Street</name>
+		<description>People rush by on this busiest of streets. Vendors hawk their wares from cramped shops on either side.</description>
+		<look>A hunched old man eyes you from a dark alley.</look>
+		<enemy>a hunched old man</enemy>
+		<npcs></npcs>
+		<items></items>
+		<exit>
+			<roomout>001</roomout>
+			<direction>north</direction>
+			<exittype></exittype>
+		</exit>
+	</room>
+	<room id="003">
+		<name>A Main Street</name>
+		<description>People rush by on this busiest of streets. Vendors hawk their wares from cramped shops on either side.</description>
+		<npcs></npcs>
+		<items></items>
+		<exit>
+			<roomout>004</roomout>
+			<direction>south</direction>
+			<exittype></exittype>
+		</exit>
+		<exit>
+			<roomout>001</roomout>
+			<direction>west</direction>
+			<exittype></exittype>
+		</exit>
+	</room>
+
+	<room id="004">
+		<name>A Dark ALley</name>
+		<description>Trash litters the ground in this alley. A mangy dog growls as you walk by.</description>
+		<look></look>
+		<enemy>a drunkard</enemy>
+		<npcs></npcs>
+		<items></items>
+		<exit>
+			<roomout>003</roomout>
+			<direction>north</direction>
+			<exittype></exittype>
+		</exit>
+	</room>
+</map>
