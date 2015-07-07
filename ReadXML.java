@@ -12,7 +12,7 @@ public class ReadXML {
 	 
 	    try {
 	 
-		File fXmlFile = new File("C:\\Users\\Nick\\OneDrive\\Documents\\Programming\\XML\\map.xml");
+		File fXmlFile = new File("map.xml");
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 		Document doc = dBuilder.parse(fXmlFile);
@@ -34,18 +34,19 @@ public class ReadXML {
 			System.out.println("\nCurrent Element :" + nNode.getNodeName());
 	 
 			if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-	 
 				Element eElement = (Element) nNode;
-				
 				System.out.println("Room ID: " + eElement.getAttribute("id"));
+				System.out.println("Room Name: " + eElement.getElementsByTagName("name").item(0).getTextContent());
 				System.out.println("Room Name: " + eElement.getElementsByTagName("name").item(0).getTextContent());
 				for(int i = 0;i < eElement.getElementsByTagName("exit").getLength();i++) {
 					System.out.println("Exit " + (i + 1) + ": " + eElement.getElementsByTagName("exit").item(i).getTextContent());
 				}
-				System.out.println("Enemy: " + eElement.getElementsByTagName("enemies").item(0).getTextContent());
-				System.out.println("Items: " + eElement.getElementsByTagName("items").item(0).getTextContent());
-				
-	 
+				for(int i = 0;i < eElement.getElementsByTagName("enemies").getLength();i++) {
+					System.out.println("Enemy: " + eElement.getElementsByTagName("enemies").item(0).getTextContent());
+				}
+				for(int i = 0;i < eElement.getElementsByTagName("items").getLength();i++) {
+					System.out.println("Items: " + eElement.getElementsByTagName("items").item(0).getTextContent());
+				}
 			}
 		}
 	    } catch (Exception e) {

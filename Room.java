@@ -8,9 +8,9 @@ public class Room {
 	private List<computerPlayer> enemies = new ArrayList<computerPlayer>();
 	private List<computerPlayer> npcs = new ArrayList<computerPlayer>();
 	private List<item> items = new ArrayList<item>();
-	private List<String[]> exits = new ArrayList<String[]>();
+	private List<String> exits = new ArrayList<String>();
 	
-	Room(String n ,String desc, List<computerPlayer> enemy, List<computerPlayer> npc, List<item> itemsArr, List<String[]> exit) {
+	Room(String n ,String desc, List<computerPlayer> enemy, List<computerPlayer> npc, List<item> itemsArr, List<String> exit) {
 		ListIterator iter;
 		int i = 0;
 		name = n;

@@ -39,7 +39,11 @@ public class Map2 {
     
     
     public void printRoom(String roomName) {
-        System.out.println(rooms[x][y]);
+        System.out.println(rooms.get(currRoom).getName());
+        for(String s : rooms.get(currRoom).getExits()) {
+        	System.out.print(s + " ");
+        }
+    	System.out.println(rooms[x][y]);
         System.out.println("Exits are: " + exits[x][y]);
     }
     
@@ -167,7 +171,7 @@ public class Map2 {
     	List<computerPlayer> enemies;
     	List<computerPlayer> npcs;
     	List<item> items;
-    	List<String[]> exits;
+    	List<String> exits;
     	
 	    try {
 			File fXmlFile = new File(mapLocation);
@@ -180,10 +184,7 @@ public class Map2 {
 			NodeList nList = doc.getElementsByTagName("room");
 		 
 			for (int temp = 0; temp < nList.getLength(); temp++) {
-				
-				
 				Node nNode = nList.item(temp);
-				
 				System.out.println("\nCurrent Element :" + nNode.getNodeName());
 		 
 				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
@@ -197,7 +198,7 @@ public class Map2 {
 					}
 					System.out.println("Enemy: " + eElement.getElementsByTagName("enemies").item(0).getTextContent());
 					System.out.println("Items: " + eElement.getElementsByTagName("items").item(0).getTextContent());
-					rooms.add(new Room(mapLocation, mapLocation, null, temp, null, temp, null, temp, null, temp));
+					//rooms.add(new Room(mapLocation, mapLocation, null, temp, null, temp, null, temp, null, temp));
 		 
 				}
 			}
